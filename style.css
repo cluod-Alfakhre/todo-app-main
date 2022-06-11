@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+
+:root{
+    --dark-bg:hsl(235, 21%, 11%);
+    --list-bg: #25273c;
+    --text-color:hsl(0, 0%, 98%);
+    --icon-color: hsl(0, 0%, 98%);
+    --list-text:#cacde8;
+    --task-border: solid 1px #393a4c;
+    --gray:#4d5066;
+}
+body.light-theme{
+    --Very-Dark-Blue: hsl(235, 21%, 11%);
+    --list-bg: #ffffff;
+    --task-border: solid 1px hsl(236, 33%, 92%);
+    --dark-bg: hsl(0, 0%, 98%);
+    --list-text: hsl(236, 9%, 61%);
+    --light-gray:#4d50666e;   
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style: none;
+}
+body{
+    font-family: 'Josefin Sans', sans-serif;
+}
+main{
+    display: grid;
+    justify-items: center;
+    grid-auto-rows: min-content;
+    min-height: 100vh;
+    background-color: var(--dark-bg);
+    padding-bottom: 3rem;
+}
+.main-bg{
+    position: absolute;
+    min-height: inherit;
+    width: 100%;
+    z-index: 1;
+    display: grid;
+    grid-template-rows: 250px 1fr;
+}
+.main-bg .top{
+    background-image: url('images/bg-desktop-dark.jpg');
+    background-size: cover;
+}
+.light-theme .main-bg .top{
+    background-image: url('images/bg-desktop-light.jpg');
+}
+
+.container{
+    margin: 4.5rem 0 0;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+}
+.container nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 2rem;
+}
+nav h1{
+    color: var(--text-color);
+    font-size: 43px;
+    letter-spacing: 1rem;
+}
+nav .theme{
+    position: relative;
+    height: 26px;
+    width: 26px;
+}
+nav .theme svg{
+    transition: .2s;
+    cursor: pointer;
+    position: absolute;
+}
+nav .theme svg path{
+    fill: var(--icon-color);
+}
+nav .theme .moon{
+    opacity: 0;
+}
+nav .theme.active .sun{
+    opacity: 0;
+}
+nav .theme.active svg{
+    opacity: 1;
+    transform: rotate(360deg);
+}
+.container .form{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 2rem;
+    background-color: var(--list-bg);
+    padding: 21px 1.5rem;
+    border-radius: 5px;
+    box-shadow: 10px -25px 28px rgb(0 0 0 / 30%);
+    margin-bottom: 1rem;
+    position: relative;
+}
+.container .form input{
+    border: none;
+    padding: 0 1rem;
+    color: var(--list-text);
+    font-size: 18px;
+    background-color: transparent;
+    width: 100%;
+}
+.container .form input::placeholder{
+    color: var(--list-text);
+}
+.container .form input:focus{
+    outline: none;
+}
+.container .form .add-task{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    height: 1.2rem;
+    width: 1.2rem;
+    border: 1px solid var(--list-text);
+    border-radius: 50%;
+    color: var(--list-text);
+    text-align: center;
+    cursor: pointer;
+    font-size: 1em;
+    background-color: transparent;
+}
+.validation{
+    background-color: var(--icon-color);
+    color: var(--list-bg);
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 195px);
+    display: none;
+    opacity: 0;
+    transition: opacity .2s;
+}
+.validation.active{
+    opacity: 1;
+}
+.container .tasks{
+    background-color: var(--list-bg);
+    box-shadow: -5px 0 20px 15px rgb(0 0 0 / 20%);
+}
+.tasks .content .task{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 21px 2rem;
+    border-bottom: var(--task-border);
+    cursor: grab;
+}
+.tasks .content > div{
+    overflow: hidden;
+    transition: .2s;
+}
+.tasks .content .task .check{
+    border-radius: 50%;
+    border: solid 1px var(--list-text);
+    width: 20px;
+    height: 20px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.tasks .content .task .check svg{
+    opacity: 0;
+    transition: .2s;
+}
+.tasks .content .task.complete .check{
+    background: linear-gradient(127deg,#57ddff,#c058f3);
+}
+.tasks .content .task.complete .check svg{
+    opacity: 1;
+}
+
+.tasks .content .task p{
+    color: var(--list-text);
+    font-size: 18px;
+}
+.tasks .content .task.complete p{
+    color: var(--gray);
+    text-decoration: line-through;
+}
+.light-theme .tasks .content .task.complete p{
+    color: var(--light-gray);
+}
+.tasks .content .task .delete{
+    opacity: 0;
+    cursor: pointer;
+}
+.tasks .content .task:hover .delete{
+    opacity: 1;
+}
+
+.controle-board{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    padding: 1.5rem 2rem;
+    justify-items: center;
+    justify-content: space-between;
+    color: var(--gray);
+    font-size: 14px;
+}
+.controle-board .categories{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.controle-board .categories a{
+    text-decoration: none;
+    color: var(--gray);
+    transition: .2s;
+}
+.controle-board .categories a:hover{
+    color: var(--icon-color);
+}
+.light-theme .controle-board .categories a:hover{
+    color: hsl(234, 11%, 52%);
+}
+.controle-board .categories li.active a{
+    color: #3a7bfd;
+}
+.controle-board .clear:hover{
+    color: var(--icon-color);
+    cursor: pointer;
+}
+.light-theme .controle-board .clear:hover{
+    color: hsl(234, 11%, 52%);
+}
+
+footer{
+    align-self: flex-start;
+    color: var(--gray);
+}
+
+.ghost-item{
+    background-color: #7a7c8b14;
+}
+@media(max-width:768px){
+    main{
+        padding: 0 1rem 3rem;
+    }
+    .main-bg .top{
+        background-image: url('images/bg-mobile-dark.jpg');
+    }
+    .light-theme .main-bg .top{
+        background-image: url('images/bg-mobile-light.jpg');
+    }
+    .container{
+        margin: 4.5rem 0 5rem;
+    }
+    nav h1{
+        font-size: 35px;
+    }
+    .container .form input{
+        font-size: 1rem;
+    }
+    .tasks .content .task .check{
+        width: 17px;
+        height: 17px;
+    }
+    .tasks .content .task p{
+        font-size: 1rem;
+    }
+    .tasks .content .task .delete{
+        opacity: 1;
+    }
+    .controle-board{
+        font-size: 13px;
+    }
+    .categories{
+        position: absolute;
+        top: calc(100% + 20px);
+        background-color: var(--list-bg);
+        width: 100%;
+        padding: 1rem 5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 10px 10px 30px rgb(0 0 0 / 30%);
+    }
+}
